@@ -1,0 +1,130 @@
+
+<report>
+  <configuration>
+  <input-location></input-location> <!-- path of folder containing input files such as *.csv, *.png etc., -->
+  <output-location></output-location> <!-- path of folder containing output files that has been generated such as *.pdf, *.png etc., -->
+  </configuration>
+  <head>
+    <title>QoS</title>
+    <publisher>PAC 12</publisher>
+    <color>#00b5cc</color> <!-- Global color scheme -->
+    <image>pac12logo.png</image>
+	<date>2012-08-07</date>
+    <ooyalalogo>ooyalalogo.png</ooyalalogo>
+  </head>	
+  <summary>
+	<graphs>
+	  <graph type="summary" src="summary.csv">
+	    <title>QoS Summary</title>
+      </graph>
+    </graphs>
+  </summary>
+  <drilldowns>
+    <drilldown>
+	  <title>DELIVERY DRILL-DOWN</title>
+	  <graphs>
+	  	<graph type="stacked" src="average_bitrate.csv">
+		  <title>Average Bitrate by Device and Date</title>
+		  <yaxis>Desktop</yaxis>
+		  <yaxis2>Mobile</yaxis2>
+		  <yaxis3>Tablet</yaxis3>
+		  <xaxis>Date</xaxis>
+		  <text>
+			<left>
+			  <header>Metric Description:</header>
+			  <block>The average bitrate delivered across all devices each during each day of the previous week.</block>
+			</left>
+			<right>
+			  <header>Action Steps:</header>
+			  <item>Check bandwidth available by device and bitrate.</item>
+			  
+			</right>
+		  </text>
+	    </graph>
+		<graph type="bar" src="average_bitrates.csv">
+		  <title>Bandwidth Available by Device and Bitrate</title>
+		  <yaxis>kbps</yaxis>
+		  <xaxis>Date</xaxis>
+		 <text>
+			<left>
+			  <header>Metric Description:</header>
+			  <block>A measurement of the bandwidth available to users on each device.</block>
+			</left>
+			<right>
+			  <header>Action Steps:</header>
+			  <item>Check this metric to understand if additional bitrates are needed to improve your encoding profile.</item>
+
+			</right>
+		  </text>
+		</graph>
+	</graphs>
+  </drilldown>
+  <drilldown>
+	<title>CORE QOS DRILL-DOWN</title>
+	 <graphs>
+	  	<graph type="line" src="average_bitrates.csv">
+		  <title>Bandwidth Available by Device and Bitrate</title>
+		  <yaxis>kbps</yaxis>
+		  <xaxis>Date</xaxis>
+		 <text>
+			<left>
+			  <header>Metric Description:</header>
+			  <block>Average number of observed buffering events per bitrate in encoding profile, by device type.</block>
+			</left>
+			<right>
+				<header>Action Steps:</header>
+				<item>Matching the bitrates available to the bandwidth available for each device can improve buffering.</item>
+			</right>
+		  </text>
+		</graph>
+		<graph type="linee" src="buffering_length.csv">
+		  <title>Buffering Event Length by Bitrate and Device</title>
+		  <yaxis>Seconds</yaxis>
+		 <text>
+			<left>
+			  <header>Metric Description:</header>
+			  <block>Average length of observed buffering events (in seconds) by bitrate in encoding profile, by device type.</block>
+			</left>
+			<right>
+				<header>Action Steps:</header>
+				<item>Matching the bitrates available to the bandwidth available for each device can improve buffering.</item>
+			</right>
+		  </text>
+		</graph>
+		<graph type="linee" src="abr_frequency.csv">
+		  <title>ABR Event Frequency by Bitrate and Device</title>
+		  <yaxis>ABR Events per Minute</yaxis>
+		 <text>
+			<left>
+			  <header>Metric Description:</header>
+			  <block>Average frequency of ABR events (# events per hour) by bitrate in encoding profile, by device type.</block>
+			</left>
+			<right>
+			  <header>Action Steps:</header>
+			  <item>Evenly spacing available bitrates can minimize ABR frequency.</item>
+			</right>
+		  </text>
+		</graph>
+		 </graphs>
+    </drilldown>
+    <drilldown>
+	  <title>PLAYER DRILL-DOWN</title>
+	   <graphs>
+	  <graph type="arrow" src="player_stats.csv">
+		<title>Player Load Time and Time to First Frame by Device</title>
+		  <yaxis>ABR Events per Minute</yaxis>
+		 <text>
+			<left>
+			  <header>Metric Description:</header>
+			  <block>Average time (in seconds) for player to load and to reach first frame, by device type.</block>
+			</left>
+			<right>
+			  <header>Action Steps:</header>
+			  <item>Contact Ooyala Professional Services for an publisher-specific optimized player.</item>
+			</right>
+		  </text>
+		</graph>
+	 </graphs>
+	</drilldown>
+  </drilldowns>
+</report>

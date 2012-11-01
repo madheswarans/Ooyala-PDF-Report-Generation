@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="ooyala-pdfreport-packager" default="usage">
+	<property name="pdfreport.home.directory" value="./.."/>
+	<property name="pdfreport.core.directory" value="${pdfreport.home.directory}/development/pdfreport"/>
+	<property name="pdfreport.home.folder.name" value="pdfreport"/>
+	<property name="pdfreport.package.directory" value="./packager/${pdfreport.home.folder.name}"/>
+	<property name="pdfreport.package.folder.name" value="packager"/>
+
+	<target name="usage">
+		<echo>ant -f packager [build | package]</echo>
+	</target>
+
+	<target name="build">
+		<ant dir="${pdfreport.core.directory}" target="build"/>
+		<ant dir="${pdfreport.core.directory}" target="clean"/>
+	</target>
+
+	<target name="package" depends="build">
+		<mkdir dir="${pdfreport.package.directory}"/>
+		<mkdir dir="${pdfreport.package.directory}/config"/>
+		<mkdir dir="${pdfreport.package.directory}/logs"/>
+		<mkdir dir="${pdfreport.package.directory}/input"/>
+		<mkdir dir="${pdfreport.package.directory}/output"/>
+		<mkdir dir="${pdfreport.package.directory}/report"/>
+
+		<copy todir="${pdfreport.package.directory}/config">
+			<fileset dir="${pdfreport.home.directory}/config">
+				<include name="log4j.debug.xml"/>
+				<include name="log4j.production.xml"/>
+				<include name="pdfreport.properties"/>
+				<include name="line.png"/>
+				<include name="arrow.png"/>
+			</fileset>
+		</copy>
+
+		<copy todir="${pdfreport.package.directory}">
+			<fileset dir="${pdfreport.home.directory}/deploy">
+				<exclude name="CVS/*.*"/>
+			</fileset>
+		</copy>
+
+		<tstamp>
+			<format property="packaging.timestamp" pattern="yyyyMMddHHmm"/>
+		</tstamp>
+
+		<zip
+			destfile="./${pdfreport.home.folder.name}-setup-kit-${packaging.timestamp}.zip"
+			basedir="./${pdfreport.package.folder.name}"
+			update="true">
+			<exclude name="*.dir"/>
+			<exclude name="**/.project"/>
+			<exclude name="**/*.log"/>
+		</zip>
+
+		<delete
+			dir="${pdfreport.package.directory}"
+			includeEmptyDirs="true"/>
+	</target>
+</project>

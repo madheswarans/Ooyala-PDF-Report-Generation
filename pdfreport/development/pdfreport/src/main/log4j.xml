@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>            
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/" debug="false">
+	<!-- Console Appender for Root Logger -->
+	<appender name="Console-Log" class="org.apache.log4j.ConsoleAppender">
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{ISO8601} %-5p [%c] %m%n"/>
+		</layout>
+	</appender>
+
+	<!-- A size based rolling file appender for PDF Report Generation Tool Logger -->
+	<appender name="PDF-Report-Tool-Log" class="org.apache.log4j.RollingFileAppender">
+		<param name="Threshold" value="TRACE"/>
+		<param name="File" value="./logs/error.log"/>
+		<param name="MaxFileSize" value="10MB"/>
+		<param name="MaxBackupIndex" value="10"/> 
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{ISO8601} %-5p [%c{1}] %m%n"/>
+		</layout>
+	</appender>
+
+	<!-- Setup the level for PDF Report Generation Tool Logs -->
+	<category name="com.ooyala.tools.pdfreport" additivity="false">
+		<priority value="DEBUG"/>
+		<appender-ref ref="PDF-Report-Tool-Log"/>
+	</category>
+
+	<!-- Setup the level for Root Logger -->
+	<root>
+		<priority value="DEBUG"/>
+		<appender-ref ref="Console-Log"/>
+	</root>
+</log4j:configuration>

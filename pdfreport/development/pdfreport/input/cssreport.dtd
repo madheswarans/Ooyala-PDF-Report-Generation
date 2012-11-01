@@ -1,0 +1,48 @@
+<!ELEMENT report (configuration,head,summary,drilldowns)>
+
+<!ELEMENT configuration (input-location,output-location)>
+<!-- path of folder containing input files such as *.csv, *.png etc., -->
+<!ELEMENT input-location (#PCDATA)>
+<!-- path of folder containing output files that has been generated such as *.pdf, *. -->
+<!ELEMENT output-location (#PCDATA)>
+
+<!ELEMENT head (title,image,color,publisher,date,ooyalalogo)>
+<!-- title for document, graph, or drilldown -->
+<!ELEMENT title (#PCDATA)>
+<!-- Cover image -->
+<!ELEMENT image (#PCDATA)>
+<!-- Global color scheme -->
+<!ELEMENT color (#PCDATA)>
+<!-- name of publisher -->
+<!ELEMENT publisher (#PCDATA)>
+<!-- date to be displayed as date of report -->
+<!ELEMENT date (#PCDATA)>
+<!-- path to .png file to be used for ooyala logo -->
+<!ELEMENT ooyalalogo (#PCDATA)>
+
+<!ELEMENT summary (graph,text)>
+
+<!-- text - standalone or below a graph -->
+<!ELEMENT text (left?,right?)>
+<!ELEMENT left (header?,(block+|item+))>
+<!ELEMENT right (header?,(block+|item+))>
+<!-- header for a text element -->
+<!ELEMENT header (#PCDATA)>
+<!-- a paragraph of text -->
+<!ELEMENT block (#PCDATA)>
+<!-- one item in a bulleted list -->
+<!ELEMENT item (#PCDATA)>
+
+<!ELEMENT drilldowns (drilldown+)>
+<!ELEMENT drilldown (title,graphs)>
+
+<!ELEMENT graphs (graph+)>
+<!ELEMENT graph (title,xaxis?,yaxis?,text?)>
+<!-- a paragraph of text -->
+<!ATTLIST graph type (bar|line|bar-line|stacked|arrows|dashboard|image) #REQUIRED>
+<!-- path to source file (.png for type=image, .csv for all other types) relative to input-location -->
+<!ATTLIST graph src CDATA #REQUIRED>
+
+<!-- axis labels -->
+<!ELEMENT xaxis (#PCDATA)>
+<!ELEMENT yaxis (#PCDATA)>
